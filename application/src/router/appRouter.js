@@ -1,15 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Main, Login, OrderForm, ViewOrders} from '../components';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+const router = createBrowserRouter([
+  {path: '/', element: <Main/>},
+  {path: '/login', element: <Login/>},
+  {path: '/order', element: <OrderForm/>},
+  {path: '/view-orders', element: <ViewOrders/>},
+])
 
 const AppRouter = (props) => {
   return (
-    <Router>
-      <Route path="/" exact component={Main} />
-      <Route path="/login" exact component={Login} />
-      <Route path="/order" exact component={OrderForm} />
-      <Route path="/view-orders" exact component={ViewOrders} />
-    </Router>
+    <RouterProvider router={router} />
   );
 }
 
