@@ -1,13 +1,20 @@
 import { useState, useRef} from "react";
 import { ItemDescrSelect, ItemQntSelect } from "../lib/selectInputs";
+import { editOrder, deleteOrder } from "../../redux/actions/orderActions";
+import { useDispatch } from "react-redux";
 
-const Order = ({order, onEditOrder, onDeleteOrder}) => {
+const Order = ({order}) => {
   const [isEditing, setIsEditing] = useState(false);
+  const dispatch = useDispatch();
   const itemDescrInputRef = useRef();
   const itemQntInputRef = useRef();
 
   const onEditClickHandler = () => {
     setIsEditing(true);
+  }
+
+  const onDeleteClickHandler = () => {
+    dispatch(deleteOrder(order._id));
   }
   
   const onConfirmClickHandler = () => {
@@ -24,7 +31,7 @@ const Order = ({order, onEditOrder, onDeleteOrder}) => {
       ordered_by: order.ordered_by
     }
 
-    onEditOrder(orderData);
+    dispatch(editOrder(orderData))
     setIsEditing(false);
   }
   const onCancelClickHandler = () => {
@@ -47,7 +54,7 @@ const Order = ({order, onEditOrder, onDeleteOrder}) => {
       </div>
       <div className="col-md-4 view-order-right-col">
           {!isEditing && <button className="btn btn-success" onClick={onEditClickHandler}>Edit</button>}
-          {!isEditing && <button className="btn btn-danger" onClick={onDeleteOrder.bind(null, order._id)}>Delete</button>}
+          {!isEditing && <button className="btn btn-danger" onClick={onDeleteClickHandler}>Delete</button>}
           {isEditing && <button className="btn btn-success" onClick={onConfirmClickHandler}>Confirm</button>}
           {isEditing && <button className="btn btn-danger" onClick={onCancelClickHandler}>Cancel</button>}
       </div>

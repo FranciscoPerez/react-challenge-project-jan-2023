@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Template } from '../../components';
-import { SERVER_IP } from '../../private';
 import './orderForm.css';
 import { ItemDescrSelect, ItemQntSelect } from '../lib/selectInputs';
+import { addOrder } from '../../redux/actions/orderActions';
 
-const ADD_ORDER_URL = `${SERVER_IP}/api/add-order`;
 
 export default function OrderForm(props) {
     const [orderItem, setOrderItem] = useState("");
@@ -15,23 +14,15 @@ export default function OrderForm(props) {
     const menuQuantityChosen = (event) => setQuantity(event.target.value);
 
     const auth = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
 
     const submitOrder = () => {
         if (orderItem === "") return;
-        fetch(ADD_ORDER_URL, {
-            method: 'POST',
-            body: JSON.stringify({
-                order_item: orderItem,
-                quantity,
-                ordered_by: auth.email || 'Unknown!',
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .then(response => console.log("Success", JSON.stringify(response)))
-        .catch(error => console.error(error));
+        dispatch(addOrder({
+            order_item: orderItem,
+            quantity,
+            ordered_by: auth.email || 'Unknown!',
+        }));
     }
 
     return (
@@ -44,7 +35,7 @@ export default function OrderForm(props) {
                         className="menu-select"/>
                     <br />
                     <label className="qty-label">Qty:</label>
-                    <ItemQntSelect value={orderItem} 
+                    <ItemQntSelect value={quantity} 
                         onChangeHandler={(event) => menuQuantityChosen(event)}/>
                     <br />
                     <button type="button" className="order-btn" onClick={() => submitOrder()}>Order It!</button>
