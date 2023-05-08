@@ -44,7 +44,7 @@ export default function OrderForm(props) {
                         className="menu-select"/>
                     <br />
                     <label className="qty-label">Qty:</label>
-                    <ItemQntSelect value={orderItem} 
+                    <ItemQntSelect value={quantity} 
                         onChangeHandler={(event) => menuQuantityChosen(event)}/>
                     <br />
                     <button type="button" className="order-btn" onClick={() => submitOrder()}>Order It!</button>
