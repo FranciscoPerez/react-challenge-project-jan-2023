@@ -28,3 +28,21 @@
     flex: 1;
     flex-direction: row;
 }
+
+.user-strip {
+    text-align: center;
+    color: white;
+    font-family: "Optima";
+    font-size: 1em;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    padding: 10px 0px;
+}
+
+.user-strip > label {
+    margin: 0;
+}
+
+.nav-root {
+    background: #A43F3F;
+}
