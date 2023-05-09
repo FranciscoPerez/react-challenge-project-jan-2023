@@ -6,5 +6,6 @@ import OrderForm from './order-form/order-form';
 import Template from './common/template';
 import OldViewOrders from './old-view-orders/viewOrders';
 import ViewOrders from './view-orders/viewOrders';
+import Register from './create-account/register';
 
-export { Login, OldOrderForm, OrderForm, Main, Nav, Template, OldViewOrders, ViewOrders };
+export { Login, OldOrderForm, OrderForm, Main, Nav, Template, OldViewOrders, ViewOrders, Register };
